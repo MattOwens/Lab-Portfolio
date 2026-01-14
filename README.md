@@ -7,15 +7,22 @@ This is not a flat lab. It is intentionally built, operated, broken, and repaire
 
 **Objectives:**
 This homelab exists to support:
+
 -CCNA → CCNP Enterprise & Security study
+
 -Firewall, routing, and switching mastery
+
 -Virtualization and enterprise service hosting
+
 -Security-first network design
+
 -Realistic troubleshooting and failure analysis
+
 The goal is to design, deploy, harden, break, and recover a production-grade enterprise network.
 
 **High-Level Architecture**
 The lab follows a classic enterprise edge → firewall → core → access model.
+```
                      ┌────────────────────┐
                      │   Simulated ISP     │
                      │   Cisco 1941        │
@@ -54,7 +61,8 @@ The lab follows a classic enterprise edge → firewall → core → access model
                             │  USERS     │ │ MGMT   │ │ Clients │
                             │ VLAN 20    │ │ VLAN10 │ │ Test    │
                             └────────────┘ └────────┘ └────────┘
-
+```
+```
 VLAN & Subnet Design
 VLAN	        Name	                  Purpose	                              Subnet
 10	          MGMT	        Device management & admin access	          10.10.10.0/24
@@ -63,15 +71,19 @@ VLAN	        Name	                  Purpose	                              Subnet
 40	         TRANSIT	      Firewall ↔ Core routed transit network	    10.10.40.0/30
 999	        PARKING	      Native VLAN for trunks (no hosts allowed)          	N/A
 Notes
-
+```
 VLAN 40 is a pure routed transit network — no hosts, no DHCP, no management.
 VLAN 999 is the native VLAN on all trunks and carries no traffic.
 Inter-VLAN routing occurs at the core switch, with policy enforcement at the firewall.
 
 **Virtualization Layer**
+
 -Proxmox Infrastructure-
+
 Proxmox hosts connect directly to the core switch using trunk ports.
+
 This allows:
+
 -VM placement into multiple VLANs
 Clear separation of:
 -Management
@@ -80,17 +92,27 @@ Clear separation of:
 -Enterprise-accurate traffic flow
 
 Example Virtualized Services:
+
 -Active Directory Domain Controller
+
 -DNS
+
 -Monitoring & logging
+
 -Jump/Bastion host
+
 -Application servers
 
 **Status**
 
 This is Revision 1.0 of the network design.
+
 The architecture will continue to evolve as:
+
 -Additional WAN simulations are added
+
 -Routing protocols are introduced
+
 -Security layers expand
+
 -Automation and monitoring are implemented
